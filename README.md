@@ -7,12 +7,12 @@
 **Gemini · OpenAI · OpenRouter · Groq · any OpenAI-compatible endpoint (Ollama, LM Studio, LiteLLM, vLLM)**
 
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![Version](https://img.shields.io/badge/version-1.3.0b1-yellow.svg?style=flat-square)]()
+[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg?style=flat-square)]()
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](#-license)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square)]()
 [![UI: CustomTkinter](https://img.shields.io/badge/UI-CustomTkinter-1f6feb?style=flat-square)](https://github.com/TomSchimansky/CustomTkinter)
-[![UI: PySide6](https://img.shields.io/badge/UI-PySide6%20(beta)-41CD52?style=flat-square&logo=qt&logoColor=white)](https://doc.qt.io/qtforpython-6/)
-[![Status](https://img.shields.io/badge/status-beta-orange?style=flat-square)]()
+[![UI: PySide6](https://img.shields.io/badge/UI-PySide6-41CD52?style=flat-square&logo=qt&logoColor=white)](https://doc.qt.io/qtforpython-6/)
+[![Status](https://img.shields.io/badge/status-stable-brightgreen?style=flat-square)]()
 
 </div>
 
@@ -27,7 +27,20 @@ The project currently ships in two UI eras:
 | Era | Framework | Versions | Status |
 |---|---|---|---|
 | **Classic** | CustomTkinter (Tk-based) | `v1.0.0a1` → `v1.2.0b1` | ✅ Stable |
-| **Next-gen** | PySide6 (Qt 6) | `v1.3.0b1` | 🧪 Beta |
+| **Next-gen** | PySide6 (Qt 6) | `v1.3.0` | ✅ Stable |
+
+---
+
+## 🚀 Quick Start
+
+```bash
+git clone https://github.com/YOUR_USERNAME/Project-Kizen-Client.git
+cd Project-Kizen-Client
+pip install PySide6 openai google-genai
+python project_kizen_client_v1_3_0.py
+```
+
+Then click **⚙️ → API Keys** and paste at least one provider key. See [First-Time Setup](#first-time-setup) for details.
 
 ---
 
@@ -44,6 +57,7 @@ The project currently ships in two UI eras:
 | **Custom (OpenAI-compatible)** | Ollama, LM Studio, LiteLLM, vLLM, any `base_url` + `model_id` |
 
 - **Real-time streaming** — chunk-by-chunk rendering with buffered flushing
+- **Live markdown rendering** — code blocks and inline formatting appear as the AI types (PySide6)
 - **Custom model manager** — add, edit, and delete any OpenAI-compatible endpoint from Settings
 - **Live connection tester** — validate every configured API key with latency readout
 - **Multi-turn context** — configurable history window (1–500 messages)
@@ -56,7 +70,7 @@ The project currently ships in two UI eras:
 - **Copy-to-clipboard** on every AI message
 - **Prompt history** — `↑` in the input box recalls the last prompt; `＋` menu shows last 20
 - **Multi-line input** — auto-growing textbox (`Shift+Enter` for newlines)
-- **Code block rendering** — fenced blocks with monospace font and distinct background
+- **Code block rendering** — fenced blocks with monospace font, copy button, and distinct background (PySide6)
 
 ### 🎨 Interface
 
@@ -103,6 +117,24 @@ Everything persists to `~/.kizen_config.json` (atomic writes, `chmod 600`):
 
 ---
 
+## 🆚 Which UI Should I Use?
+
+Both UIs share the same backend, providers, and storage format — the difference is purely visual and platform integration.
+
+| Feature | CustomTkinter (`v1.2.0b1`) | PySide6 (`v1.3.0`) |
+|---|:---:|:---:|
+| Multi-provider streaming | ✅ | ✅ |
+| Live markdown rendering | ⚠️ block-level only | ✅ full |
+| Native OS dialogs | ❌ (Tk) | ✅ (Qt) |
+| DPI / HiDPI scaling | ⚠️ partial | ✅ native |
+| Live theme switching | ⚠️ partial | ✅ full |
+| Approx. RAM usage | ~90 MB | ~140 MB |
+| Install footprint | small | larger (`PySide6`) |
+
+**Recommendation:** `v1.3.0` (PySide6) for new users and high-DPI screens. `v1.2.0b1` (CustomTkinter) if you want minimal dependencies.
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -114,7 +146,7 @@ Everything persists to `~/.kizen_config.json` (atomic writes, `chmod 600`):
 
 | File | UI | Status | Recommended for |
 |---|---|---|---|
-| `project_kizen_client_v1_3_0b1.py` | PySide6 (Qt 6) | 🧪 Beta | New users, high-DPI screens, native feel |
+| `project_kizen_client_v1_3_0.py` | PySide6 (Qt 6) | ✅ Stable | New users, high-DPI screens, native feel |
 | `project_kizen_client_v1_2_0b1.py` | CustomTkinter | ✅ Stable | Users who want proven stability |
 | `project_kizen_client_v1_2_0.py` | CustomTkinter | ✅ Stable | Same as above (pre-hotfix baseline) |
 | `project_kizen_client_v1_1_0b1.py` | CustomTkinter | ✅ Stable | Lighter dependencies |
@@ -129,7 +161,7 @@ cd Project-Kizen-Client
 
 pip install PySide6 openai google-genai
 
-python project_kizen_client_v1_3_0b1.py
+python project_kizen_client_v1_3_0.py
 ```
 
 ### Installation — CustomTkinter version (stable)
@@ -193,13 +225,14 @@ The custom model appears instantly in every model selector.
 
 ## 🗂️ Version History
 
-### `v1.3.0b1` — PySide6 migration (BETA)
+### `v1.3.0` — PySide6 stable release
 - 🔁 **Complete UI rewrite** from CustomTkinter to **PySide6 (Qt 6)**
 - Native QSS theming, `QStackedWidget` for welcome/chat transitions
 - `Signal/Slot`-based cross-thread marshaling (replaces manual queue + polling)
 - `QTimer`-driven autoscroll, `QShortcut` keyboard bindings
 - Native dialogs (`QFileDialog`, `QMessageBox`), DPI-aware layout
-- ⚠️ Beta — report UI glitches, DPI scaling issues, or threading bugs
+- **Live markdown rendering** — code blocks and inline formatting during streaming
+- Multi-provider: Gemini, OpenAI, OpenRouter, Groq, custom endpoints
 
 ### `v1.2.0b1` — Performance & stability (CustomTkinter, latest stable)
 - Streaming hot-path optimizations (buffered flushing, chunk counter, no `cget()` during stream)
@@ -242,7 +275,7 @@ The custom model appears instantly in every model selector.
 
 ```text
 Project-Kizen-Client/
-├── project_kizen_client_v1_3_0b1.py      # PySide6 migration (BETA)
+├── project_kizen_client_v1_3_0.py        # PySide6, stable
 ├── project_kizen_client_v1_2_0b1.py      # CustomTkinter, latest stable
 ├── project_kizen_client_v1_2_0.py        # CustomTkinter, stable
 ├── project_kizen_client_v1_1_0b1.py      # CustomTkinter, stable
@@ -273,11 +306,11 @@ Runtime files (auto-created, not in repo):
 - [x] **v1.1.0b1** — Auto-titling, empty-session pruning, error messages excluded from history
 - [x] **v1.2.0** — Multi-tab Settings, system prompt presets, temperature/Top-P/Max-Tokens, theme + accent picker, chat font size, DPI-aware dialogs, JSON/Markdown chat export & import, settings export/import, storage stats, prompt history, code-block rendering, WCAG-oriented light mode
 - [x] **v1.2.0b1** — Streaming hot-path optimizations, history sanitizer, thread-safe DB, atomic config writes
-- [x] **v1.3.0b1** — Full **PySide6** migration (Qt 6, Signal/Slot threading, native dialogs, native DPI)
+- [x] **v1.3.0** — Full **PySide6** migration (Qt 6, Signal/Slot threading, native dialogs, native DPI, live markdown streaming)
 
 ### 🚧 In Progress / Planned
 
-#### v1.3.0 — Finalize PySide6
+#### v1.3.1 — PySide6 polish
 - [ ] Close the CustomTkinter feature-parity gap (message regeneration, per-message actions)
 - [ ] Native Qt syntax highlighting (QSyntaxHighlighter + Pygments)
 - [ ] Resolve remaining DPI and font-rendering issues on Linux/Wayland
@@ -309,8 +342,8 @@ Runtime files (auto-created, not in repo):
 - **API keys are stored as plain text** in `~/.kizen_config.json`. The file is `chmod 600` on Unix, but Windows ACLs are not tightened. Encrypted storage via `keyring` is on the v2.0 roadmap.
 - **`history_limit` counts messages, not tokens.** Very long messages can still hit provider context limits — increase safety by lowering the limit in **Settings → Chat**.
 - **No retry on network errors.** An error message is shown inline and excluded from history; resend manually.
-- **`v1.3.0b1` is beta** — the PySide6 migration may have UI glitches, DPI scaling issues, or threading bugs. Use `v1.2.0b1` for the most stable experience.
-- **Code blocks are rendered as plain monospace text** — no syntax highlighting yet.
+- **Code blocks are rendered as plain monospace text** — no syntax highlighting yet (planned for v1.3.1).
+- **PySide6 UI is new** — if you encounter a rendering glitch or DPI scaling issue, please open an issue. The CustomTkinter version (`v1.2.0b1`) remains fully supported.
 
 ---
 
