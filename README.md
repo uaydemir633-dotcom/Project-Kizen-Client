@@ -137,6 +137,21 @@ toolkit and platform integration.
 
 ---
 
+## 🏎️ Performance vs. Official Clients
+
+Because Project-Kizen is built natively with **Qt 6 (C++)** and Python, it bypasses the heavy web-wrapper (Chromium/Electron) overhead used by most official AI desktop apps.
+
+Measured on Windows 11 (Task Manager):
+
+| Application | Architecture | Process Count | RAM Usage |
+|---|---|---|:---:|
+| **Project-Kizen (PySide6)** | Native Qt 6 + Python | **1 process** | **~121 MB** |
+| **Google Gemini (Official)** | Web Wrapper (Chromium) | 6 processes | ~158 MB |
+
+*Note: Actual memory usage may vary based on OS, open chat history length, and active streaming.*
+
+---
+
 ## 🧩 Adding custom models
 
 Any OpenAI-compatible server works out of the box.
@@ -473,3 +488,4 @@ Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
 *If Project-Kizen saved you from tab-switching, consider giving it a ⭐*
 
 </div>
+```
