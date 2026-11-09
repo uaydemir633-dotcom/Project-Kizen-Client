@@ -2,7 +2,6 @@
 
 # ⚡Project-Kizen-Client
 
-
 ### Multi-provider AI desktop client in a single Python file
 
 **Gemini · OpenAI · OpenRouter · Groq · any OpenAI-compatible endpoint (Ollama, LM Studio, LiteLLM, vLLM)**
@@ -29,7 +28,7 @@ The project ships in **two parallel UI eras**, both fully functional and both si
 
 | Era | Framework | Latest | Status |
 |---|---|---|---|
-| **Classic** | CustomTkinter (Tk) | `v1.2.0b1` | ✅ Stable |
+| **Classic** | CustomTkinter (Tk) | `v1.2.0b1` | ✅ Stable (Frozen) |
 | **Next-gen** | PySide6 (Qt 6) | `v1.3.0` | ✅ Stable (recommended) |
 
 Both share the same **backend, providers, config format, and SQLite database**, so you
@@ -120,21 +119,56 @@ on Unix):
 
 ## 🆚 Which UI should I use?
 
-Both share the same backend, providers, and storage format — the difference is the UI
-toolkit and platform integration.
+Both builds share the same backend, providers, config format, and SQLite database —
+you can switch between them without losing data. The differences are entirely at the
+UI layer.
 
 | Feature | CustomTkinter (`v1.2.0b1`) | PySide6 (`v1.3.0`) |
 |---|:---:|:---:|
+| **Development status** | 🧊 Frozen — bug fixes only | 🚀 Active — new features land here |
 | Multi-provider streaming | ✅ | ✅ |
-| Live markdown rendering | ⚠️ fenced code blocks only | ✅ headings, lists, quotes, inline code, links, bold/italic |
-| Native OS dialogs (`QFileDialog`, `QMessageBox`) | ❌ (Tk) | ✅ |
-| DPI / HiDPI scaling | ⚠️ partial | ✅ native |
-| Live theme switching | ⚠️ partial | ✅ full |
-| Approx. RAM usage | ~90 MB | ~140 MB |
-| Install footprint | small | larger (`PySide6`) |
+| Live markdown rendering | ⚠️ Fenced code blocks only | ✅ Headings, lists, quotes, links, inline code, bold/italic |
+| Live theme switching | ✅ Theme · ❌ Accent (needs restart) | ✅ Both, fully live |
+| Native OS dialogs | ✅ Windows · macOS · ⚠️ Tk dialogs on Linux | ✅ All platforms |
+| DPI / HiDPI scaling | ⚠️ Hand-tuned helpers | ✅ Qt-native |
+| Menu appearance | Native (Tk) | Themed (Qt) |
+| Emoji rendering | ⚠️ Inconsistent on Windows | ✅ Consistent |
+| Cold start | ~0.8 s | ~2.5 s |
+| RAM usage (idle) | ~80 MB | ~180 MB |
+| Install footprint | `customtkinter` (~0.5 MB) | `PySide6` (~200 MB) |
 
-**Recommendation:** `v1.3.0` (PySide6) for new users and high-DPI screens.
-`v1.2.0b1` (CustomTkinter) if you want minimal dependencies.
+**Recommendation:** Use **PySide6 (`v1.3.0`)**. It is the actively developed branch,
+renders markdown live during streaming, handles HiDPI correctly, and only costs
+~100 MB extra RAM over the classic build.
+
+Pick **CustomTkinter (`v1.2.0b1`)** only if you are on a low-RAM machine, on a
+bandwidth-constrained connection where a 200 MB `PySide6` install is impractical,
+or you specifically need the native Tk menu feel.
+
+> **Note:** The CustomTkinter build is **feature-frozen**. It will keep receiving
+> bug fixes and security patches but no new functionality. All new work — live
+> markdown, native Qt dialogs, HiDPI, per-message actions, the v1.4/1.5/2.0 roadmap —
+> lands in the PySide6 branch only.
+
+---
+
+## 🧪 Performance Benchmark: Kizen vs Official Desktop Apps
+
+A common concern with Python desktop apps is memory footprint. We ran a live comparison
+on Windows Task Manager to see how **Project-Kizen (PySide6)** stacks up against the
+**Official Google Gemini Desktop App**.
+
+| Application | RAM Usage (Idle) | Architecture |
+|---|:---:|---|
+| **Google Gemini (Official)** | **~242 MB** *(6 processes)* | Web-wrapper / Electron-like |
+| **Project-Kizen (PySide6)** | **~111 MB** *(single process)* | Native Qt 6 + Python |
+| **Task Manager** *(reference)* | ~58 MB | Native C++ |
+
+> **The result:** Project-Kizen uses **less than half the RAM** of the official Gemini
+> desktop app, despite running multi-provider logic, a full SQLite database, and live
+> markdown rendering — all from a **single, zero-install Python file**.
+>
+> *Screenshot from Windows 11 Task Manager, idle state.*
 
 ---
 
