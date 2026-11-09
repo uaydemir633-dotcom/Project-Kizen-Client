@@ -1,6 +1,7 @@
 <div align="center">
 
-# ⚡ Project-Kizen
+# ⚡Project-Kizen-Client
+
 
 ### Multi-provider AI desktop client in a single Python file
 
@@ -137,21 +138,6 @@ toolkit and platform integration.
 
 ---
 
-## 🏎️ Performance vs. Official Clients
-
-Because Project-Kizen is built natively with **Qt 6 (C++)** and Python, it bypasses the heavy web-wrapper (Chromium/Electron) overhead used by most official AI desktop apps.
-
-Measured on Windows 11 (Task Manager):
-
-| Application | Architecture | Process Count | RAM Usage |
-|---|---|---|:---:|
-| **Project-Kizen (PySide6)** | Native Qt 6 + Python | **1 process** | **~121 MB** |
-| **Google Gemini (Official)** | Web Wrapper (Chromium) | 6 processes | ~158 MB |
-
-*Note: Actual memory usage may vary based on OS, open chat history length, and active streaming.*
-
----
-
 ## 🧩 Adding custom models
 
 Any OpenAI-compatible server works out of the box.
@@ -210,6 +196,7 @@ The custom model appears instantly in every model selector.
 | File | UI | Status | Recommended for |
 |---|---|---|---|
 | `project_kizen_client_v1_3_0.py` | PySide6 | ✅ Stable | New users, high-DPI screens, native feel |
+| `project_kizen_client_v1_3_0b1.py` | PySide6 | ⚠️ Beta | Historical / regression reference |
 | `project_kizen_client_v1_2_0b1.py` | CustomTkinter | ✅ Latest CTk | Minimal dependencies |
 | `project_kizen_client_v1_2_0.py` | CustomTkinter | ✅ Stable | Pre-hotfix baseline |
 | `project_kizen_client_v1_1_0b1.py` | CustomTkinter | ✅ Stable | Legacy |
@@ -488,4 +475,3 @@ Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
 *If Project-Kizen saved you from tab-switching, consider giving it a ⭐*
 
 </div>
-```
